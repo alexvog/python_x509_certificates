@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSR Request Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .download-button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .download-button a {
+            display: inline-block;
+            background-color: #06D6BA;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .download-button a:hover {
+            background-color: #06D6A0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CSR Request Result</h1>
+        <div class="download-button">
+            <a href="{{ pkeyURL }}" download>Download Private Key</a>
+        </div>
+        <div class="download-button">
+            <a href="{{ csrURL }}" download>Download CSR</a>
+        </div>
+    </div>
+</body>
+</html>

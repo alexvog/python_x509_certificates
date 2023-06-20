@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSR Sign Request</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="file"],
+        input[type="date"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 12px;
+        }
+
+        .file-input {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input input[type="file"] {
+            cursor: pointer;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        .file-input-label {
+            display: inline-block;
+            padding: 8px 12px;
+            background-color: #06D6BA;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .file-input-label:hover {
+            background-color: #06D6A0;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #06D6BA;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #06D6A0;
+        }
+
+        .input-options {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .input-option {
+            margin-right: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CSR Sign Request</h1>
+        <form method="POST" action="/csr-sign.html" enctype="multipart/form-data">
+            <div class="input-options">
+                <label class="input-option">
+                    <input type="radio" name="input_type" value="file" checked> Upload CSR File
+                </label>
+                <label class="input-option">
+                    <input type="radio" name="input_type" value="text"> Enter CSR Text
+                </label>
+            </div>
+
+            <div id="file-input-container">
+                <label for="csr">CSR File:</label>
+                <div class="file-input">
+                    <label class="file-input-label" for="csr" id="file-input-label">Browse</label>
+                    <input type="file" id="csr_file" name="csr_file" required>
+                </div>
+            </div>
+
+            <div id="text-input-container" style="display: none;">
+                <label for="csr_text">CSR Text:</label>
+                <textarea id="csr_text" name="csr_text" rows="6"></textarea>
+            </div>
+
+            <label for="not_valid_before">Not Valid Before:</label>
+            <input type="date" id="not_valid_before" name="not_valid_before" required>
+
+            <label for="not_valid_after">Not Valid After:</label>
+            <input type="date" id="not_valid_after" name="not_valid_after" required>
+
+            <input type="submit" name="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+        const fileInputContainer = document.getElementById('file-input-container');
+        const textInputContainer = document.getElementById('text-input-container');
+        const fileInputRadio = document.querySelector('input[name="input_type"][value="file"]');
+        const textInputRadio = document.querySelector('input[name="input_type"][value="text"]');
+        const csrFileInput = document.getElementById('csr_file');
+        const fileInputLabel = document.getElementById('file-input-label');
+    
+        fileInputRadio.addEventListener('change', () => {
+            fileInputContainer.style.display = 'block';
+            textInputContainer.style.display = 'none';
+            csrFileInput.setAttribute('required', ''); // Add the required attribute
+        });
+    
+        textInputRadio.addEventListener('change', () => {
+            fileInputContainer.style.display = 'none';
+            textInputContainer.style.display = 'block';
+            csrFileInput.removeAttribute('required'); // Remove the required attribute
+        });
+    
+        csrFileInput.addEventListener('change', () => {
+            const files = csrFileInput.files;
+            if (files.length > 0) {
+                fileInputLabel.textContent = files[0].name;
+            }
+        });
+    </script>
+
+</body>
+</html>
